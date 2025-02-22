@@ -1,6 +1,6 @@
 const EmployeesModel = require('../Models/employeesModel');
 
-const getallEmployees = () => {
+const getAllEmployees = () => {
     return EmployeesModel.find();
 }
 
@@ -8,7 +8,7 @@ const getEmployeeById = (id) => {
     return EmployeesModel.findById(id);
 }   
 
-const addEmployee = (employee) => {
+const addEmployee = (obj) => {
     const employee = new EmployeesModel(obj);
     return employee.save();
 }   
@@ -22,7 +22,7 @@ const deleteEmployee = (id) => {
 }       
 
 module.exports = {
-    getallEmployees,
+    getAllEmployees,
     getEmployeeById,
     addEmployee,
     updateEmployee,

@@ -1,4 +1,4 @@
-const ShiftsRepository = require("../Repositories/shiftsRepository")
+const ShiftsRepository = require("../Repositories/ShiftsRepository")
 
 const getAllShifts = (filters) => {
     return ShiftsRepository.getallShifts(filters);
@@ -20,10 +20,18 @@ const addEmployeeToShift = (shiftId, employeeId) => {
     return ShiftsRepository.addEmployeeToShift(shiftId, employeeId);
 }
 
+const removeEmployeeFromAllShift = (employeeId) => {
+    const shifts = ShiftsRepository.getallShifts({Employees: employeeId});
+    shifts.forEach(shift => {
+        ShiftsRepository.removeEmployeeFromShift(shift.id, employeeId);
+    });
+}
+
 module.exports = {
     getAllShifts,
     getShiftById,
     addShift,
     updateShift,
-    addEmployeeToShift
+    addEmployeeToShift,
+    removeEmployeeFromAllShift
 }

@@ -20,6 +20,9 @@ app.use("/shifts", ShiftsRouter)
 const UsersRouter = require("./Routers/UsersRouter")
 app.use("/user", UsersRouter)  
 
+const EmployeesRouter = require("./Routers/EmployeesRouter")
+app.use("/employee", EmployeesRouter)  
+
 app.listen(PORT, () => {
   // Entry Point (Base URL): http://localhost:3000
   console.log(`app is listening at http://localhost:${PORT}`);

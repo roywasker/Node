@@ -21,10 +21,18 @@ const addEmployeeToShift = (shiftId, employeeId) => {
     return ShiftsModel.findByIdAndUpdate(shiftId, { $push: { Employees: employeeId } });
 }
 
+const removeEmployeeFromShift = async (employeeId) => {
+    const shifts = await getallShifts({ Employees: employeeId });
+    await Promise.all(shifts.map(shift => 
+        ShiftsModel.findByIdAndUpdate(shift.id, { $pull: { Employees: employeeId } })
+    ));
+}
+
 module.exports = {
     getallShifts,
     getShiftById,
     addShift,
     updateShift,
-    addEmployeeToShift
+    addEmployeeToShift,
+    removeEmployeeFromShift
 }
