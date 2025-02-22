@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 const departmentSchema = mongoose.Schema(
   {
-    Name: String,
-    Manager: String,
+    Name: { type: String, required: true },
+    Manager: { type: String, required: true },
   },
   { versionKey: false }
 );

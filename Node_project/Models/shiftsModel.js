@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 
 const shiftSchema = mongoose.Schema(
   {
-    Date: Date,
-    StartingHour: Int,
-    EndingHour: Int,
+    Date: { type: String, required: true },
+    StartingHour: { type: Number, required: true },
+    EndingHour: { type: Number, required: true },
+    Employees: [{ type: String }]
   },
   { versionKey: false }
 );

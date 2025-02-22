@@ -12,7 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 const LoginRouter = require("./Routers/LoginRouter")
-app.use("/login", LoginRouter)  
+app.use("/login", LoginRouter) 
+
+const ShiftsRouter = require("./Routers/ShiftsRouter")
+app.use("/shifts", ShiftsRouter)  
+
+const UsersRouter = require("./Routers/UsersRouter")
+app.use("/user", UsersRouter)  
 
 app.listen(PORT, () => {
   // Entry Point (Base URL): http://localhost:3000

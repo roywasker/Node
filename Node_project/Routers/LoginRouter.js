@@ -1,6 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const LoginService = require('../Services/LoginService');
+const UsersService = require('../Services/UsersService');
+
 
 const router = express.Router();
 
@@ -13,15 +15,28 @@ router.post('/', async (req, res) => {
 
         const users = await LoginService.getUsers()
 
-        let userId = null;
+        let userData = null;
         users.forEach(user => {
             if(user.username === username && user.email === email){
-                userId = user.id
+                userData = user
             }
         });
 
+        let userId = null;
+        if(userData){
+            const allUsers = await UsersService.getAllUsers();
+            allUsers.forEach(user => {
+                if(user.UserName === userData.username){
+                    if(user.ActionToday <= 0){
+                        res.status(400).json({ message: 'The daily Action are over' });
+                    }
+                    userId = user.id
+                }
+            });
+        }
+
         if (userId) {
-            const token = jwt.sign({ id: 'user_id' }, 'token_key', { expiresIn: '1h' });
+            const token = jwt.sign({ id: userId }, 'token_key', { expiresIn: '1h' });
             res.json({ token });
         }else{
             res.status(400).json({ message: 'Invalid credentials' });

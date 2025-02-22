@@ -1,7 +1,7 @@
 const ShiftsModel = require('../Models/shiftsModel');
 
-const getallShifts = () => {
-    return ShiftsModel.find();
+const getallShifts = (filters) => {
+    return ShiftsModel.find(filters);
 }
 
 const getShiftById = (id) => {
@@ -17,8 +17,8 @@ const updateShift = (id, obj) => {
     return ShiftsModel.findByIdAndUpdate(id, obj);
 }
 
-const deleteShift = (id) => {
-    return ShiftsModel.findByIdAndDelete(id);
+const addEmployeeToShift = (shiftId, employeeId) => {
+    return ShiftsModel.findByIdAndUpdate(shiftId, { $push: { Employees: employeeId } });
 }
 
 module.exports = {
@@ -26,5 +26,5 @@ module.exports = {
     getShiftById,
     addShift,
     updateShift,
-    deleteShift
+    addEmployeeToShift
 }

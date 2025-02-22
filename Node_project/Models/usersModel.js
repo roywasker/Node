@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema(
   {
-    FullName: String,
-    NumOfActions: Int,
+    FullName: { type: String, required: true },
+    NumOfActions: { type: Number, required: true },
+    UserId: { type: String, required: true },
+    UserName: { type: String, required: true },
+    ActionDate: String,
+    ActionToday: Number
   },
   { versionKey: false }
 );
