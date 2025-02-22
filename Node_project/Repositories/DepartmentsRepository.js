@@ -13,8 +13,8 @@ const addDepartment = (department) => {
     return newDepartment.save();
 }   
 
-const updateDepartment = (id, department) => {
-    return DepartmentsModel.findByIdAndUpdate(id, department);
+const updateDepartment = (id, obj) => {
+    return DepartmentsModel.findByIdAndUpdate(id, obj);
 }
 
 const deleteDepartment = (id) => {

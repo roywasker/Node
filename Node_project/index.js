@@ -21,7 +21,10 @@ const UsersRouter = require("./Routers/UsersRouter")
 app.use("/user", UsersRouter)  
 
 const EmployeesRouter = require("./Routers/EmployeesRouter")
-app.use("/employee", EmployeesRouter)  
+app.use("/employee", EmployeesRouter)
+
+const DepartmentsRouter = require("./Routers/DepartmentsRouter")
+app.use("/department", DepartmentsRouter)
 
 app.listen(PORT, () => {
   // Entry Point (Base URL): http://localhost:3000
