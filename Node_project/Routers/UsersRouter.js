@@ -1,6 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const UsersService = require('../Services/UsersService');
+const filesUtils = require('../utils');
+
 
 const router = express.Router();
 
@@ -22,6 +24,8 @@ router.get('/', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const Users = await UsersService.getAllUsers(req.query);
         res.json(Users);
@@ -50,6 +54,8 @@ router.get('/:id', async (req, res) => {
             return res.status(500).json('The daily Action are over');
         }
 
+        filesUtils.addUserActions(userId);
+
         const user  = await UsersService.getUserById(req.params.id);
         res.json(user);
 
@@ -76,6 +82,8 @@ router.post('/', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const body = req.body;
         const user = await UsersService.addUser(body);

@@ -2,6 +2,8 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const EmployeesService = require('../Services/EmployeesService');
 const UsersService = require('../Services/UsersService');
+const filesUtils = require('../utils');
+
 
 const router = express.Router();
 
@@ -23,6 +25,8 @@ router.get('/', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const employees = await EmployeesService.getAllEmployees();
         res.json(employees);
@@ -51,6 +55,8 @@ router.get('/:id', async (req, res) => {
             return res.status(500).json('The daily Action are over');
         }
 
+        filesUtils.addUserActions(userId);
+
         const employee = await EmployeesService.getEmployeeById(req.params.id);
         res.json(employee);
 
@@ -77,6 +83,8 @@ router.post('/', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const employee = await EmployeesService.addEmployee(req.body);
         res.json(employee);
@@ -105,6 +113,8 @@ router.put('/:id', async (req, res) => {
             return res.status(500).json('The daily Action are over');
         }
 
+        filesUtils.addUserActions(userId);
+
         const employee = await EmployeesService.updateEmployee(req.params.id, req.body);
         res.json(employee);
 
@@ -131,6 +141,8 @@ router.delete('/:id', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const employee = await EmployeesService.deleteEmployee(req.params.id);
         res.json(employee);

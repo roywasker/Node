@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const ShiftsService = require('../Services/ShiftsService');
 const UsersService = require('../Services/UsersService');
+const filesUtils = require('../utils');
 
 const router = express.Router();
 
@@ -23,6 +24,8 @@ router.get('/', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const shifts = await ShiftsService.getAllShifts(req.query);
         res.json(shifts);
@@ -51,6 +54,8 @@ router.get('/:id', async (req, res) => {
             return res.status(500).json('The daily Action are over');
         }
 
+        filesUtils.addUserActions(userId);
+
         const shift = await ShiftsService.getShiftById(req.params.id);
         res.json(shift);
 
@@ -77,6 +82,8 @@ router.post('/:id', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
 
         const id = req.params.id;
         const body = req.body;
@@ -107,6 +114,8 @@ let userId = null;
             return res.status(500).json('The daily Action are over');
         }
 
+        filesUtils.addUserActions(userId);
+
         const body = req.body;
         const shift = await ShiftsService.addShift(body);
         res.json(shift);
@@ -134,6 +143,8 @@ router.post('/addEmployee/:shiftId', async (req, res) => {
         if(allow == false) {
             return res.status(500).json('The daily Action are over');
         }
+
+        filesUtils.addUserActions(userId);
         
         const shiftId = req.params.shiftId;
         const employeeId = req.body.Employees;
